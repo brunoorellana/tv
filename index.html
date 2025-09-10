@@ -3,19 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Index</title>
+  <title>Página en 4 partes</title>
   <style>
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh; /* ocupa toda la altura de la ventana */
       margin: 0;
-      font-family: Arial, sans-serif;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      height: 100vh; /* ocupa toda la pantalla */
     }
+
+    .parte1 { background-color: #FF6B6B; } /* rojo suave */
+    .parte2 { background-color: #4ECDC4; } /* turquesa */
+    .parte3 { background-color: #FFD93D; } /* amarillo */
+    .parte4 { background-color: #1A535C; } /* azul oscuro */
   </style>
 </head>
 <body>
-  <h1>Hola mundo</h1>
+  <div class="parte1"></div>
+  <div class="parte2"></div>
+  <div class="parte3"></div>
+  <div class="parte4"></div>
 </body>
 </html>
