@@ -5,62 +5,210 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NOTICIAS TV</title>
   <style>
-    html, body { height: 100%; margin: 0; }
+    :root {
+      --bg: #000;
+      --panel: #0b0b0b;
+      --text: #e8e8e8;
+      --muted: #9aa0a6;
+    }
+
+    html, body { height: 100%; }
     body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      display: grid;
+      grid-template-rows: auto 1fr;
+      overflow: hidden; /* evita scroll accidental */
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    /* Barra de controles */
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid #1f1f1f;
+      padding: 10px 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(220px, 1fr));
+      gap: 8px;
+    }
+
+    .row {
+      display: contents; /* para que cada label+select ocupe su celda */
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      background: #111;
+      color: var(--text);
+      border: 1px solid #2a2a2a;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    /* Contenedor 2x2 de videos */
+    main {
+      height: 100%;
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
-      height: 100vh;
-      background: #000;
-      /* Si quieres ver separación entre cuadrantes, descomenta:
-      gap: 8px;
-      */
+      gap: 0;
     }
-    .parte1, .parte2, .parte3, .parte4 {
+
+    .parte {
       position: relative;
       overflow: hidden;
-      background: #111; /* color de respaldo mientras carga */
+      background: #111; /* respaldo mientras carga */
     }
-    .parte1 iframe, .parte2 iframe, .parte3 iframe, .parte4 iframe {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      border: 0; display: block;
+
+    .parte iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      /* Nota: YouTube maneja la relación de aspecto internamente */
+    }
+
+    /* Responsive: en pantallas chicas apilar 4 filas */
+    @media (max-width: 800px) {
+      .controls {
+        grid-template-columns: 1fr 1fr;
+      }
+      main {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+      }
+    }
+
+    /* Intermedias: dos columnas pero controles más cómodos */
+    @media (min-width: 801px) and (max-width: 1200px) {
+      .controls {
+        grid-template-columns: repeat(2, minmax(220px, 1fr));
+      }
     }
   </style>
 </head>
 <body>
-  <div class="parte1">
-    <iframe
-      src="https://www.youtube.com/embed/9YM7cgG8mu4?autoplay=1&mute=1&playsinline=1"
-      title="T13"
-      allow="autoplay; encrypted-media; picture-in-picture; clipboard-write">
-    </iframe>
-  </div>
+  <header>
+    <div class="controls" id="controls">
+      <div class="row">
+        <div>
+          <label for="sel-1">Cuadrante 1</label>
+          <select id="sel-1"></select>
+        </div>
+        <div>
+          <label for="sel-2">Cuadrante 2</label>
+          <select id="sel-2"></select>
+        </div>
+        <div>
+          <label for="sel-3">Cuadrante 3</label>
+          <select id="sel-3"></select>
+        </div>
+        <div>
+          <label for="sel-4">Cuadrante 4</label>
+          <select id="sel-4"></select>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  <div class="parte2">
-    <iframe
-      src="https://www.youtube.com/embed/rFuVVgPY2sc?autoplay=1&mute=1&playsinline=1"
-      title="CHV"
-      allow="autoplay; encrypted-media; picture-in-picture; clipboard-write">
-    </iframe>
-    
-  </div>
+  <main>
+    <section class="parte" id="parte-1">
+      <iframe title="Cuadrante 1"
+        allow="autoplay; encrypted-media; picture-in-picture; clipboard-write"
+        allowfullscreen></iframe>
+    </section>
 
-  <div class="parte3">
-    <iframe
-      src="https://www.youtube.com/embed/ILk_bzfSszc?autoplay=1&mute=1&playsinline=1"
-      title="MEGA"
-      allow="autoplay; encrypted-media; picture-in-picture; clipboard-write">
-    </iframe>
-  </div>
+    <section class="parte" id="parte-2">
+      <iframe title="Cuadrante 2"
+        allow="autoplay; encrypted-media; picture-in-picture; clipboard-write"
+        allowfullscreen></iframe>
+    </section>
 
-  <div class="parte4">
-    <iframe
-      src="https://www.youtube.com/embed/h3Jn8f-YKRk?autoplay=1&mute=1&playsinline=1"
-      title="TVN"
-      allow="autoplay; encrypted-media; picture-in-picture; clipboard-write">
-    </iframe>
-  </div>
+    <section class="parte" id="parte-3">
+      <iframe title="Cuadrante 3"
+        allow="autoplay; encrypted-media; picture-in-picture; clipboard-write"
+        allowfullscreen></iframe>
+    </section>
+
+    <section class="parte" id="parte-4">
+      <iframe title="Cuadrante 4"
+        allow="autoplay; encrypted-media; picture-in-picture; clipboard-write"
+        allowfullscreen></iframe>
+    </section>
+  </main>
+
+  <script>
+    // 📺 Define tus canales aquí (puedes agregar más)
+    const CHANNELS = [
+      { id: '9YM7cgG8mu4', name: 'T13 (YouTube)' },
+      { id: 'rFuVVgPY2sc', name: 'CHV (YouTube)' },
+      { id: 'ILk_bzfSszc', name: 'MEGA (YouTube)' },
+      { id: 'h3Jn8f-YKRk', name: 'TVN (YouTube)' },
+      // { id: 'OTRO_ID', name: 'Nombre Canal' },
+    ];
+
+    // Parámetros fijos de reproducción (mute para permitir autoplay)
+    const COMMON_PARAMS = 'autoplay=1&mute=1&playsinline=1';
+
+    // Construye la URL embed (uso youtube-nocookie para privacidad mejorada)
+    const makeEmbedUrl = (videoId) =>
+      `https://www.youtube-nocookie.com/embed/${videoId}?${COMMON_PARAMS}`;
+
+    // Rellena selects con las opciones de CHANNELS
+    function populateSelect(selectEl, defaultId) {
+      selectEl.innerHTML = '';
+      CHANNELS.forEach(ch => {
+        const opt = document.createElement('option');
+        opt.value = ch.id;
+        opt.textContent = ch.name;
+        if (ch.id === defaultId) opt.selected = true;
+        selectEl.appendChild(opt);
+      });
+    }
+
+    // Setea el src del iframe correspondiente
+    function setIframeSrc(quadrant, videoId) {
+      const iframe = document.querySelector(`#parte-${quadrant} iframe`);
+      if (!iframe) return;
+      // Reinicia el src para forzar recarga
+      iframe.src = makeEmbedUrl(videoId);
+    }
+
+    // Inicialización
+    (function init() {
+      const defaults = [
+        '9YM7cgG8mu4', // Q1: T13
+        'rFuVVgPY2sc', // Q2: CHV
+        'ILk_bzfSszc', // Q3: MEGA
+        'h3Jn8f-YKRk', // Q4: TVN
+      ];
+
+      // Populate selects + listeners
+      defaults.forEach((videoId, i) => {
+        const sel = document.getElementById(`sel-${i+1}`);
+        populateSelect(sel, videoId);
+        setIframeSrc(i+1, videoId);
+        sel.addEventListener('change', (e) => {
+          setIframeSrc(i+1, e.target.value);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
-
