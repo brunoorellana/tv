@@ -5,44 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TV</title>
   <style>
-    /* Grid 2x2 a pantalla completa */
+    /* Debug: bordes para ver los cuadrantes */
+    .parte1, .parte2, .parte3, .parte4 { outline: 2px dashed rgba(255,255,255,.6); }
+
+    html, body { height: 100%; }
     body {
       margin: 0;
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
       height: 100vh;
+      background: #000;
     }
 
-    /* Cada cuadrante */
     .parte1, .parte2, .parte3, .parte4 {
       position: relative;
       overflow: hidden;
     }
 
-    /* Cualquier iframe dentro de un cuadrante llena el espacio */
     .parte1 iframe,
     .parte2 iframe,
     .parte3 iframe,
     .parte4 iframe {
       position: absolute;
-      inset: 0;       /* top:0; right:0; bottom:0; left:0 */
+      inset: 0;
       width: 100%;
       height: 100%;
-      border: none;
+      border: 0;
+      display: block;
     }
 
-    .parte1 { background: #FF6B6B; } /* opcional, se tapa con el iframe */
+    .parte1 { background: #FF6B6B; }
     .parte2 { background: #4ECDC4; }
     .parte3 { background: #FFD93D; }
     .parte4 { background: #1A535C; }
   </style>
-
 </head>
 <body>
   <div class="parte1">
     <iframe
-      src="https://www.youtube.com/embed/9YM7cgG8mu4?autoplay=1&mute=1"
+      src="https://www.youtube.com/embed/9YM7cgG8mu4?autoplay=1&mute=1&playsinline=1&enablejsapi=1"
       title="Canal 13"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerpolicy="strict-origin-when-cross-origin"
@@ -52,33 +54,38 @@
 
   <div class="parte2">
     <iframe
-      src="https://www.youtube.com/embed/9YM7cgG8mu4?autoplay=1&mute=1"
-      title="Señal en vivo"
+      src="https://www.youtube.com/embed/9YM7cgG8mu4?autoplay=1&mute=1&playsinline=1&enablejsapi=1"
+      title="Señal en vivo 2"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerpolicy="strict-origin-when-cross-origin"
       allowfullscreen>
     </iframe>
   </div>
 
-    <div class="parte3">
+  <div class="parte3">
     <iframe
-      src="https://www.youtube.com/embed/ILk_bzfSszc?autoplay=1&mute=1"
-      title="Señal en vivo"
+      src="https://www.youtube.com/embed/ILk_bzfSszc?autoplay=1&mute=1&playsinline=1&enablejsapi=1"
+      title="Señal en vivo 3"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerpolicy="strict-origin-when-cross-origin"
       allowfullscreen>
     </iframe>
   </div>
 
-    <div class="parte4">
+  <div class="parte4">
+    <!-- Prueba 1: primero un bloque de color para confirmar que el cuadrante aparece -->
+    <!-- Si ves el color, el problema es del iframe, no del layout -->
+    <!-- Quita este div de color cuando confirmes -->
+    <div style="position:absolute;inset:0;background:#1A535C;"></div>
+
+    <!-- Prueba 2: iframe (cámbialo por otro video si este falla) -->
     <iframe
-      src="https://www.youtube.com/embed/h3Jn8f-YKRk?autoplay=1&mute=1"
-      title="Señal en vivo"
+      src="https://www.youtube.com/embed/h3Jn8f-YKRk?autoplay=1&mute=1&playsinline=1&enablejsapi=1"
+      title="Señal en vivo 4"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerpolicy="strict-origin-when-cross-origin"
       allowfullscreen>
     </iframe>
   </div>
-
 </body>
 </html>
