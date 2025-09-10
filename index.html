@@ -1,55 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Página en 4 partes</title>
   <style>
+    /* Grid 2x2 a pantalla completa */
     body {
       margin: 0;
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
-      height: 100vh; /* toda la pantalla */
+      height: 100vh;
     }
 
+    /* Cada cuadrante */
     .parte1, .parte2, .parte3, .parte4 {
-      position: relative; /* para manejar contenido dentro */
+      position: relative;
       overflow: hidden;
     }
 
-    .parte1 iframe {
+    /* Cualquier iframe dentro de un cuadrante llena el espacio */
+    .parte1 iframe,
+    .parte2 iframe,
+    .parte3 iframe,
+    .parte4 iframe {
+      position: absolute;
+      inset: 0;       /* top:0; right:0; bottom:0; left:0 */
       width: 100%;
       height: 100%;
       border: none;
     }
 
-    .parte2 { background-color: #4ECDC4; } /* turquesa */
-    .parte3 { background-color: #FFD93D; } /* amarillo */
-    .parte4 { background-color: #1A535C; } /* azul oscuro */
+    .parte1 { background: #FF6B6B; } /* opcional, se tapa con el iframe */
+    .parte2 { background: #4ECDC4; }
+    .parte3 { background: #FFD93D; }
+    .parte4 { background: #1A535C; }
   </style>
 </head>
 <body>
-  <div class="Canal13">
-<iframe 
-  src="https://www.youtube.com/embed/9YM7cgG8mu4?autoplay=1&mute=1&si=zHNDqUgS-kcY1UUT" 
-  title="Canal13" 
-  frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-  referrerpolicy="strict-origin-when-cross-origin" 
-  allowfullscreen>
-</iframe>  
+  <div class="parte1">
+    <iframe
+      src="https://www.youtube.com/embed/9YM7cgG8mu4?autoplay=1&mute=1&si=zHNDqUgS-kcY1UUT"
+      title="Canal 13"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen>
+    </iframe>
   </div>
+
   <div class="parte2">
-<iframe 
-  src="https://www.youtube.com/embed/h3Jn8f-YKRk?autoplay=1&mute=1&si=zHNDqUgS-kcY1UUT" 
-  title="Canal13" 
-  frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-  referrerpolicy="strict-origin-when-cross-origin" 
-  allowfullscreen>
-</iframe>
+    <iframe
+      src="https://www.youtube.com/embed/h3Jn8f-YKRk?autoplay=1&mute=1"
+      title="Señal en vivo"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen>
+    </iframe>
   </div>
+
   <div class="parte3"></div>
   <div class="parte4"></div>
 </body>
